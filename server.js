@@ -1,9 +1,12 @@
 const bodyParser = require("body-parser");
 const express = require("express");
+
 require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+const http = require("http").Server(app);
+const io = require("socket.io")(http);
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
@@ -24,6 +27,6 @@ app.post("/messages", (req, res) => {
   res.sendStatus(200);
 });
 
-app.listen(PORT, () => {
+http.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
