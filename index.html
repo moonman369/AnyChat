@@ -35,9 +35,24 @@
       <div class="" jumbotron>
         <h1 class="display-4">Send Message</h1>
         <br />
-        <input type="text" class="form-control" placeholder="Name" />
-        <br />
-        <button id="send" class="btn btn-success">Send</button>
+        <form action="">
+          <input
+            id="name"
+            type="text"
+            class="form-control"
+            placeholder="Name"
+            required
+          />
+          <br />
+          <textarea
+            id="message"
+            class="form-control"
+            placeholder="Message"
+            required
+          ></textarea>
+          <br />
+          <button id="send" class="btn btn-success">Send</button>
+        </form>
       </div>
 
       <div id="messages"></div>
@@ -46,7 +61,15 @@
     <script>
       $(() => {
         $("#send").click(() => {
-          addMessages({ name: "John Doe", message: "Hello" });
+          const name = $("#name").val();
+          const msg = $("#message").val();
+          if (name && msg) {
+            const message = {
+              name: name,
+              message: msg,
+            };
+            postMessage(message);
+          }
         });
 
         getMessages();
@@ -54,9 +77,11 @@
         console.log("loaded");
       });
       function addMessages(message) {
-        $("#messages").append(
-          `<h4>${message.name}</h4> <p>${message.message}</p>`
-        );
+        if (message.name && message.message) {
+          $("#messages").append(
+            `<h4>${message.name}</h4> <p>${message.message}</p>`
+          );
+        }
       }
 
       function getMessages() {
@@ -65,6 +90,10 @@
             addMessages(message);
           });
         });
+      }
+
+      function postMessage(message) {
+        $.post("http://localhost:5000/messages", message);
       }
     </script>
   </body>

@@ -7,6 +7,7 @@ const app = express();
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const messages = [
   { name: "John Doe", message: "Yes." },
