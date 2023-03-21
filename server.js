@@ -5,8 +5,8 @@ require("dotenv").config();
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-const http = require("http").Server(app);
-const io = require("socket.io")(http);
+var http = require("http").Server(app);
+var io = require("socket.io")(http);
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
@@ -22,9 +22,14 @@ app.get("/messages", (req, res) => {
 });
 
 app.post("/messages", (req, res) => {
-  console.log(req.body);
+  //   console.log(req.body);
   messages.push(req.body);
+  io.emit("message", req.body);
   res.sendStatus(200);
+});
+
+io.on("connection", (socket) => {
+  console.log("a user just connected");
 });
 
 http.listen(PORT, () => {

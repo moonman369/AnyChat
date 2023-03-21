@@ -60,6 +60,7 @@
     </div>
 
     <script>
+      const socket = io();
       $(() => {
         $("#send").click(() => {
           const name = $("#name").val();
@@ -75,7 +76,7 @@
 
         getMessages();
 
-        console.log("loaded");
+        socket.on("message", addMessages);
       });
       function addMessages(message) {
         if (message.name && message.message) {
