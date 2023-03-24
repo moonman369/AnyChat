@@ -32,4 +32,12 @@ describe("Get messages from a user", () => {
       done();
     });
   });
+
+  it("Should return 200 OK", (done) => {
+    request.get("http://localhost:5000/messages/moonman", (err, res) => {
+      if (err) console.error(err);
+      expect(JSON.parse(res.body)[0].name).toEqual("moonman");
+      done();
+    });
+  });
 });

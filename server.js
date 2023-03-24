@@ -27,6 +27,12 @@ app.get("/messages", async (req, res) => {
   res.send(messages);
 });
 
+app.get("/messages/:user", async (req, res) => {
+  const user = req.params.user;
+  const messages = await Message.find({ name: user });
+  messages.length > 0 ? res.send(messages) : res.send([]);
+});
+
 app.post("/messages", async (req, res) => {
   try {
     if (req.body.name && req.body.message) {
