@@ -28,14 +28,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>AnyChat</title>
   </head>
-  <body>
+  <body class="bg-dark text-light">
     <div class="container">
       <br />
       <div class="" jumbotron>
-        <h1 class="display-4">Send Message</h1>
+        <h1 class="display-3 font-weight-bold text-success">
+          Welcome to AnyChat
+        </h1>
         <br />
+        <br />
+        <br />
+        <h3 class="jumbotron">Send an anonymous message</h3>
+        <br />
+
         <form action="">
           <input
             id="name"
@@ -56,7 +63,12 @@
         </form>
       </div>
 
-      <div id="messages"><br /><br /><br /></div>
+      <div id="messages" class="text-align-center">
+        <br /><br /><br />
+
+        <h3 class="jumbotron">Recent Messages:</h3>
+        <br />
+      </div>
     </div>
 
     <script>
@@ -81,14 +93,14 @@
       function addMessages(message) {
         if (message.name && message.message) {
           $("#messages").append(
-            `<h4>${message.name}</h4> <p>${message.message}</p>`
+            `<div class="bg-success px-4 pr-0 pb-1 pt-3 m-4 rounded w-75"><h4>${message.name}</h4> <p>${message.message}</p></div>`
           );
         }
       }
 
       function getMessages() {
         $.get("http://localhost:5000/messages", (data) => {
-          data.forEach((message) => {
+          data.reverse().forEach((message) => {
             addMessages(message);
           });
         });
