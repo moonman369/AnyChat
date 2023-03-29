@@ -1,0 +1,9 @@
+:root {
+  --content-width: fit-content;
+}
+
+.fit-content {
+  width: fit-content;
+  padding-left: 15px;
+  padding-right: 20px;
+}

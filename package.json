@@ -1,8 +1,8 @@
 {
-  "name": "demo_chat_app",
+  "name": "AnyChat",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "This is a simple, anonymous, uncensored chat app created using NodeJS and ExpressJS",
+  "main": "server.js",
   "scripts": {
     "test": "jasmine"
   },
