@@ -8,7 +8,6 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 var http = require("http").Server(app);
-// var io = require("socket.io")(http);
 var mongoose = require("mongoose");
 
 app.use(express.static(__dirname));
