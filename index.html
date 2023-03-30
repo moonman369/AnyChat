@@ -97,8 +97,7 @@
         getMessages();
 
         channel.bind("newMsg", (data) => {
-          console.log(data);
-          // addMessages(data)
+          addMessages(data)
         });
       });
       function addMessages(message) {
