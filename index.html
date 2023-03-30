@@ -109,7 +109,7 @@
       }
 
       function getMessages() {
-        $.get("http://localhost:5000/messages", (data) => {
+        $.get("/messages", (data) => {
           data.reverse().forEach((message) => {
             addMessages(message);
           });
@@ -117,7 +117,7 @@
       }
 
       function postMessage(message) {
-        $.post("http://localhost:5000/messages", message);
+        $.post("/messages", message);
       }
     </script>
   </body>
