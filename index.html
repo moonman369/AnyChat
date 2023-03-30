@@ -24,7 +24,8 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
-  <script src="socket.io/socket.io.js"></script>
+
+  <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -73,7 +74,12 @@
     </div>
 
     <script>
-      const socket = io();
+      const pusher = new Pusher("8aeb3f98d41009ed0f70", {
+        cluster: "ap2",
+      });
+
+      const channel = pusher.subscribe("channel0");
+
       $(() => {
         $("#send").click(() => {
           const name = $("#name").val();
@@ -89,7 +95,10 @@
 
         getMessages();
 
-        socket.on("message", addMessages);
+        channel.bind("newMsg", (data) => {
+          console.log(data);
+          // addMessages(data)
+        });
       });
       function addMessages(message) {
         if (message.name && message.message) {
