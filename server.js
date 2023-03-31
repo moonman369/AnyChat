@@ -44,8 +44,8 @@ app.get("/messages/:user", async (req, res) => {
 });
 
 app.post("/messages", async (req, res) => {
-  try {
-    if (req.body.name && req.body.message) {
+  if (req.body.name && req.body.message) {
+    try {
       // throw ReferenceError;
       // console.log(req.body);
       const message = new Message(req.body);
@@ -72,11 +72,11 @@ app.post("/messages", async (req, res) => {
       }
 
       res.sendStatus(200);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      console.log("message post called");
     }
-  } catch (error) {
-    console.error(error);
-  } finally {
-    console.log("message post called");
   }
 });
 

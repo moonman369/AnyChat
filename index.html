@@ -136,7 +136,6 @@ Pusher.logToConsole = true;
       async function prependMessages(message) {
         if (message.name && message.message) {
           console.log('logging')
-          // $('#messages').append(`${message.name}`)
           $("#messages").prepend(
              `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded "><h4>${message.name}</h4> <p>${message.message}</p></div>`
           );
@@ -146,7 +145,6 @@ Pusher.logToConsole = true;
       async function appendMessages(message) {
         if (message.name && message.message) {
           console.log('logging')
-          // $('#messages').append(`${message.name}`)
           $("#messages").append(
              `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded "><h4>${message.name}</h4> <p>${message.message}</p></div>`
           );
@@ -162,7 +160,9 @@ Pusher.logToConsole = true;
       }
 
       function postMessage(message) {
-        $.post("/messages", message);
+        if (message.name && message.message) {
+          $.post("/messages", message);
+        }
       }
     </script>
   </body>
