@@ -22,7 +22,7 @@ const pusher = new Pusher({
   key: "8aeb3f98d41009ed0f70",
   secret: "a90676195e1404203084",
   cluster: "ap2",
-  useTLS: true,
+  // useTLS: true,
 });
 
 const Message = mongoose.model("Message", {
