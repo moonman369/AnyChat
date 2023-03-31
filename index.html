@@ -78,7 +78,7 @@
 
     <script>
 
-Pusher.logToConsole = true;
+// Pusher.logToConsole = true;
 
       var pusher = new Pusher("8aeb3f98d41009ed0f70", {
         cluster: "ap2",
@@ -89,32 +89,13 @@ Pusher.logToConsole = true;
 
       channel.bind("newMsg", function ({ message }) {
           prependMessages(message)
-          console.log(message)
+          // console.log(message)
           return message
         })
 
-      // $(() => {
-      //   $("#send").click(() => {
-      //     const name = $("#name").val();
-      //     const msg = $("#message").val();
-      //     // $("#name").val() = ''
-      //     // $("#message").val() = ''
-      //     if (name && msg) {
-      //       const message = {
-      //         name: name,
-      //         message: msg,
-      //       };
-      //       postMessage(message);
-      //     }
-      //   });
-
-        
-
         getMessages();
 
-        
-      // });
-
+      
       $("#send").click(() => {
           const name = $("#name").val();
           const msg = $("#message").val();
