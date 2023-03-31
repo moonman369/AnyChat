@@ -45,7 +45,6 @@
         <br />
         <h3 class="jumbotron">Send an anonymous message</h3>
         <br />
-
         <form action="">
           <input
             id="name"
@@ -66,25 +65,61 @@
         </form>
       </div>
 
+      <br><br><br>
+      <h3 class="jumbotron">Recent Messages:</h3>
+        <br />
+
       <div id="messages" class="text-align-center">
         <br /><br /><br />
 
-        <h3 class="jumbotron">Recent Messages:</h3>
-        <br />
+        
       </div>
     </div>
 
     <script>
-      const pusher = new Pusher("8aeb3f98d41009ed0f70", {
+
+Pusher.logToConsole = true;
+
+      var pusher = new Pusher("8aeb3f98d41009ed0f70", {
         cluster: "ap2",
       });
+      
 
-      const channel = pusher.subscribe("channel0");
+      var channel = pusher.subscribe("channel0");
 
-      $(() => {
-        $("#send").click(() => {
+      channel.bind("newMsg", function ({ message }) {
+          prependMessages(message)
+          console.log(message)
+          return message
+        })
+
+      // $(() => {
+      //   $("#send").click(() => {
+      //     const name = $("#name").val();
+      //     const msg = $("#message").val();
+      //     // $("#name").val() = ''
+      //     // $("#message").val() = ''
+      //     if (name && msg) {
+      //       const message = {
+      //         name: name,
+      //         message: msg,
+      //       };
+      //       postMessage(message);
+      //     }
+      //   });
+
+        
+
+        getMessages();
+
+        
+      // });
+
+      $("#send").click(() => {
           const name = $("#name").val();
           const msg = $("#message").val();
+          // $("#name").val() = ''
+          // $("#message").val() = ''
           if (name && msg) {
             const message = {
               name: name,
@@ -94,24 +129,34 @@
           }
         });
 
-        getMessages();
+        
 
-        channel.bind("newMsg", (data) => {
-          addMessages(data)
-        });
-      });
-      function addMessages(message) {
+        // getMessages();
+
+      async function prependMessages(message) {
         if (message.name && message.message) {
+          console.log('logging')
+          // $('#messages').append(`${message.name}`)
+          $("#messages").prepend(
+             `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded "><h4>${message.name}</h4> <p>${message.message}</p></div>`
+          );
+        }
+      }
+
+      async function appendMessages(message) {
+        if (message.name && message.message) {
+          console.log('logging')
+          // $('#messages').append(`${message.name}`)
           $("#messages").append(
-            `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded "><h4>${message.name}</h4> <p>${message.message}</p></div>`
+             `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded "><h4>${message.name}</h4> <p>${message.message}</p></div>`
           );
         }
       }
 
       function getMessages() {
         $.get("/messages", (data) => {
-          data.reverse().forEach((message) => {
-            addMessages(message);
+          data.forEach((message) => {
+            prependMessages(message);
           });
         });
       }

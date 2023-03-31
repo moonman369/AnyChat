@@ -8,6 +8,7 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 var http = require("http").Server(app);
+// var io = require("socket.io")(http);
 var mongoose = require("mongoose");
 
 app.use(express.static(__dirname));
@@ -43,8 +44,8 @@ app.get("/messages/:user", async (req, res) => {
 });
 
 app.post("/messages", async (req, res) => {
-  if (req.body.name && req.body.message) {
-    try {
+  try {
+    if (req.body.name && req.body.message) {
       // throw ReferenceError;
       // console.log(req.body);
       const message = new Message(req.body);
@@ -71,11 +72,11 @@ app.post("/messages", async (req, res) => {
       }
 
       res.sendStatus(200);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      console.log("message post called");
     }
+  } catch (error) {
+    console.error(error);
+  } finally {
+    console.log("message post called");
   }
 });
 
