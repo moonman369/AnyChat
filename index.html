@@ -24,7 +24,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
-
+  
   <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   <head>
     <meta charset="UTF-8" />
@@ -43,22 +43,22 @@
         <br />
         <br />
         <br />
-        <h3 class="jumbotron">Send an anonymous message</h3>
+        <h3 class="jumbotron">Send an anonymous message to all users...</h3>
         <br />
         <form  action="">
-          <input
+          <!-- <input
             id="name"
             type="text"
             class="form-control inp_name"
             placeholder="Enter a pseudoname"
             required
-          />
+          /> -->
           <br />
           <textarea
             id="message"
             class="form-control inp_msg"
             placeholder="Type your Message"
-            rows="6"
+            rows="4"
             cols="1"
             required
           ></textarea>
@@ -82,6 +82,8 @@
 
 // Pusher.logToConsole = true;
 
+
+
       var pusher = new Pusher("8aeb3f98d41009ed0f70", {
         cluster: "ap2",
       });
@@ -99,11 +101,12 @@
 
       
       $("#send").click(() => {
-          const name = $("#name").val();
+          const name = 'base'
           const msg = $("#message").val();
           // $("#name").val() = ''
           // $("#message").val() = ''
           if (name && msg) {
+            
             const message = {
               name: name,
               message: msg,
@@ -120,7 +123,7 @@
         if (message.name && message.message) {
           console.log('logging')
           $("#messages").prepend(
-             `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded "><h4>${message.name}</h4> <p>${message.message}</p></div>`
+             `<div class="fit-content bg-success pb-1 pt-3 m-4 rounded username"><h4 class='username'>${message.name}</h4> <p>${`${message.message}`}</p></div>`
           );
         }
       }

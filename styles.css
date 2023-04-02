@@ -15,6 +15,12 @@
 
 .inp_msg {
   width: 30rem;
+  background-color: rgb(176, 248, 208);
+}
+
+.username {
+  color: rgb(221, 221, 221);
+  border-color: 1px solid rgb(109, 255, 95);
 }
 
 .btn_send {

@@ -10,6 +10,7 @@ const app = express();
 var http = require("http").Server(app);
 // var io = require("socket.io")(http);
 var mongoose = require("mongoose");
+const { generateUsername } = require("unique-username-generator");
 
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
@@ -48,6 +49,7 @@ app.post("/messages", async (req, res) => {
     try {
       // throw ReferenceError;
       // console.log(req.body);
+      req.body.name = generateUsername("-", 3, 20);
       const message = new Message(req.body);
 
       const savedMsg = await message.save();
